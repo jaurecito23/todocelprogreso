@@ -1,0 +1,11 @@
+@import 'base/normalize';
+@import 'base/variables';
+@import 'base/utilidades';
+@import 'base/mixins';
+@import 'base/globales';
+/////////////////
+@import "layout/inicio";
+@import "layout/ingresar";
+@import "layout/tienda";
+@import "layout/navegacion";
+@import "layout/productos";

@@ -1,0 +1,44 @@
+    .todo {
+        height: 100%;
+    }
+    
+    .contenedor__inicio {
+        position: fixed;
+        left: auto;
+        right: auto;
+        top: 40%;
+        color: $blanco;
+        margin: 0 auto 0 auto;
+        width: 100%;
+        button {
+            width: auto;
+            margin: 0 auto 0 auto;
+            font-size: 2.5rem;
+            color: $blanco;
+            text-align: center;
+            display: block;
+            background-color: $naranja-oscuro;
+            border: none;
+            border-radius: 1.2rem;
+            height: 4rem;
+        }
+        h1 {
+            color: $negro;
+            width: auto;
+            margin: 0 auto 0 auto;
+        }
+        .beneficios {
+            font-size: 2.5rem;
+            color: $gris-claro;
+            margin: .1rem;
+            text-align: center;
+        }
+        .cargando {
+            text-align: center;
+            color: $gris;
+            font-size: 1.8rem;
+        }
+        .oculto {
+            display: none;
+        }
+    }

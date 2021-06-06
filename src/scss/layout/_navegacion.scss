@@ -1,0 +1,29 @@
+.navegacion {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 3rem;
+    margin-top: .3rem;
+    .nav {
+        display: flex;
+        flex: 1 1 calc(30% - 1rem);
+        text-align: center;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        border-radius: 1.2rem;
+        a {
+            &:visited {
+                color: $blanco;
+            }
+            color: $blanco;
+        }
+        &:focus {
+            background-color: $naranja-oscuro;
+        }
+        &:hover {
+            background-color: $naranja-oscuro;
+        }
+    }
+    background-color: $naranja-muy-oscuro;
+}
