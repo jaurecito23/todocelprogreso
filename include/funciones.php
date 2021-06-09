@@ -1,9 +1,9 @@
 <?php
 
-
+require "app.php";
 
 function incluírTemplate($template){
-    include __DIR__ . "/templates/${template}.php";
+    include TEMPLATES_URL."${template}.php";
 };
 
 
