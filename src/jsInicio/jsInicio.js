@@ -36,7 +36,7 @@ function paginaInicio() {
                 clearInterval(intervalo);
                 clearInterval(intervaloCargando);
                 setTimeout(() => {
-                    window.location = "ingresar.html"
+                    window.location = "ingresar.php"
                 }, 300);
             }
         }, 30);

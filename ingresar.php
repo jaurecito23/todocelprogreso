@@ -16,7 +16,7 @@
             <h1> Toca un Boton para continuar </h1>
                 <div class="botones">
                     <a href="registrarse.html"><span>Registrarse</span></a>
-                    <a href="tienda.html"><span>Ir a la Tienda</span></a>
+                    <a href="tienda.php"><span>Ir a la Tienda</span></a>
                     <a href="iniciarsesion.html"><span>Ingresar</span></a>
             </div>
         <img    src="build/img/logo.webp" alt="Logo TODOCEL">

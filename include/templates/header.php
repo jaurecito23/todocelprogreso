@@ -28,48 +28,11 @@
                 <div class="navegacion">
 
                       <div class="nav">
-                            <a href="#" >Accesorios</a>
+                            <a href="#"> Accesorios </a>
                       </div>
                       <div class="nav">
-                            <a href="#">Celulares</a>
+                            <a href="#"> Celulares </a>
                       </div>
                       <div class="nav">
-                            <a href="#">Outlet</a>
+                            <a href="#"> Outlet </a>
                       </div>
-
-                <h1>Hola</h1>
-
-
-                </div>
-             </nav>
-
-
-
-
-            <div class="galeria">
-        <p class="anterior oculto mover-galeria">
-        &lt;
-        </p>
-
-
-        <p class="siguiente oculto mover-galeria">
-        &gt;
-        </p>
-
-            </div>
-
-  <section class="seccion-productos contenedor">
-
-  <h2>Productos...</h2>
-
-    <div class="contenedor-productos">
-
-    </div>
-  </section>
-
-     </div>
-
-
-    <script src="build/js/bundle.min.js"></script>
-</body>
-</html>
