@@ -3,10 +3,8 @@
     require "../../include/funciones.php";
     $db = conectarDB();
 
+        $errores = [];
 
-    incluírTemplate("header");
-
-    debuguear($db);
         $marca = "";
         $modelo = "";
         $precio = "";
@@ -36,14 +34,54 @@
         $proveedor= $_POST['proveedor'];
         $otrosDetalles = $_POST['otros-detalles'];
 
+        if($marca === ""){
 
+            $errores[] = "Debe ingresar una marca";
 
+        }
+        if($modelo === ""){
+
+            $errores[] = "Debe ingresar un modelo";
+
+        }
+        if($precio === ""){
+
+            $errores[] = "Debe ingresar un precio";
+
+        }
+        if($detalles === ""){
+
+            $errores[] = "Debe ingresar los detalles";
+
+        }
+        if($cantidadStock === ""){
+
+            $errores[] = "Debe ingresar una cantidad en stock";
+
+        }
+        if($precioReal === ""){
+
+            $errores[] = "Debe ingresar un precio real";
+
+        }
+        if($proveedor === ""){
+
+            $errores[] = "Debe ingresar un proveedor";
+
+        }
+        if($otrosDetalles === ""){
+
+            $errores[] = "Debe ingresar otrosDetalles";
+
+        }
+        var_dump($errores);
 
 
 
     }
 
 
+    incluírTemplate("header");
 
 ?>
 
