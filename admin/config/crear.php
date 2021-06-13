@@ -26,7 +26,6 @@
         $marca = mysqli_real_escape_string($db,$_POST['marca']);
         $modelo = mysqli_real_escape_string($db,$_POST['modelo']);
         $precio = mysqli_real_escape_string($db,$_POST['precio']);
-        $imagen = mysqli_real_escape_string($db,$_POST['imagen']);
         $stock = mysqli_real_escape_string($db,$_POST['stock']);
         $detalles = mysqli_real_escape_string($db,$_POST['detalles']);
         $precioReal = mysqli_real_escape_string($db,$_POST['precio-real']);
@@ -38,9 +37,9 @@
             $imagen = $_FILES['imagen'];
 
         }
-    
 
-        echo $imagen;
+
+
 
         if($marca === ""){
             $errores[] = "Debe ingresar una marca";
@@ -71,15 +70,33 @@
             $errores[] = "Debe ingresar Otros Detalles";
         }
 
+        // if(isset($_FILES['imagen']) && !$_FILES['imagen']['error'] = 0 ){
+
+        //     $errores[] = "Debes Agregar una imagen";
+
+        // }
+
+
+
         if(empty($errores)){
 
-                // Imagen
 
+            // Imagen
+
+            // Subir al servidor
+                // crear carpeta si no existe
+                if(!is_dir(CARPETA_IMAGENES)){
+                    mkdir(CARPETA_IMAGENES);
+                }
+
+              echo "creada";
+
+
+            //Nombre
                 $nombreImagen = md5(uniqid(rand(), true)) . "jpg";
 
 
-
-
+                //Inseratr todo en base de datos
             $query = "INSERT INTO productos (marca,modelo,precio,imagen,stock,detalles) VALUES('$marca','$modelo','$precio','','$stock','$detalles');";
 
             $resultado = mysqli_query($db,$query);
@@ -96,6 +113,15 @@
 ?>
 
      <main>
+            <div>
+                <?php foreach($errores as $error):?>
+
+                        <h2> <?php echo $error?> </h2>
+
+                <?php  endforeach;?>
+
+            </div>
+
         <div>
                 <form method="POST" action="/pagina-web/admin/config/crear.php" enctype="multipart/form-data">
                     <fieldset>
