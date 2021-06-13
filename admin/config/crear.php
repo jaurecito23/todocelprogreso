@@ -10,12 +10,12 @@
         $precio = "";
         $imagen = "";
         $stock = "";
-        $detalles = "";
+        $detalles = "Sin Detalles";
         $cantidadStock = "";
         $precioReal ="";
         $proveedor= "";
-        $otrosDetalles = "";
-
+        $otrosDetalles = "Sin Detalles";
+        $imagen = "";
 
 
 
@@ -23,60 +23,70 @@
     if($_SERVER['REQUEST_METHOD']==="POST"){
 
 
-        $marca = $_POST['marca'];
-        $modelo = $_POST['modelo'];
-        $precio = $_POST['precio'];
-        $imagen = $_POST['imagen'];
-        $stock = $_POST['stock'];
-        $detalles = $_POST['detalles'];
-        $cantidadStock = $_POST['cantidad-stock'];
-        $precioReal = $_POST['precio-real'];
-        $proveedor= $_POST['proveedor'];
-        $otrosDetalles = $_POST['otros-detalles'];
+        $marca = mysqli_real_escape_string($db,$_POST['marca']);
+        $modelo = mysqli_real_escape_string($db,$_POST['modelo']);
+        $precio = mysqli_real_escape_string($db,$_POST['precio']);
+        $imagen = mysqli_real_escape_string($db,$_POST['imagen']);
+        $stock = mysqli_real_escape_string($db,$_POST['stock']);
+        $detalles = mysqli_real_escape_string($db,$_POST['detalles']);
+        $precioReal = mysqli_real_escape_string($db,$_POST['precio-real']);
+        $cantidadStock =mysqli_real_escape_string($db,$_POST['cantidad-stock']);
+        $proveedor= mysqli_real_escape_string($db,$_POST['proveedor']);
+        $otrosDetalles = mysqli_real_escape_string($db,$_POST['otros-detalles']);
+        if(isset($_FILES['imagen'])){
+
+            $imagen = $_FILES['imagen'];
+
+        }
+    
+
+        echo $imagen;
 
         if($marca === ""){
-
             $errores[] = "Debe ingresar una marca";
-
         }
         if($modelo === ""){
-
             $errores[] = "Debe ingresar un modelo";
-
         }
         if($precio === ""){
-
             $errores[] = "Debe ingresar un precio";
-
         }
+        if($stock === ""){
+            $errores[] = "Debe ingresar un stock";
+        }
+
         if($detalles === ""){
-
             $errores[] = "Debe ingresar los detalles";
-
         }
         if($cantidadStock === ""){
-
             $errores[] = "Debe ingresar una cantidad en stock";
-
         }
         if($precioReal === ""){
-
             $errores[] = "Debe ingresar un precio real";
-
         }
         if($proveedor === ""){
-
             $errores[] = "Debe ingresar un proveedor";
-
         }
         if($otrosDetalles === ""){
+            $errores[] = "Debe ingresar Otros Detalles";
+        }
 
-            $errores[] = "Debe ingresar otrosDetalles";
+        if(empty($errores)){
+
+                // Imagen
+
+                $nombreImagen = md5(uniqid(rand(), true)) . "jpg";
+
+
+
+
+            $query = "INSERT INTO productos (marca,modelo,precio,imagen,stock,detalles) VALUES('$marca','$modelo','$precio','','$stock','$detalles');";
+
+            $resultado = mysqli_query($db,$query);
+
+
 
         }
-        var_dump($errores);
-
-
 
     }
 
@@ -87,37 +97,44 @@
 
      <main>
         <div>
-                <form method="POST">
+                <form method="POST" action="/pagina-web/admin/config/crear.php" enctype="multipart/form-data">
                     <fieldset>
                         <legend> Ingrese las características </legend>
                         <div>
                         <label> Marca </label>
-                        <input name="marca" type="text" placeholder="Ej.: Samsung">
+                        <input value="<?php echo $marca ?>" name="marca" type="text" placeholder="Ej.: Samsung">
                         </div>
 
                         <div>
                         <label> Modelo </label>
-                        <input  name="modelo" type="text" placeholder="Ej.: Samsung">
+                        <input  name="modelo" type="text" value="<?php echo $modelo ?>" placeholder="Ej.: Samsung">
                         </div>
 
                         <div>
                         <label> Precio </label>
-                        <input  name="precio" type="number" placeholder="Ej.: Samsung">
+                        <input  name="precio" type="number" value="<?php echo $precio ?>" placeholder="Ej.: Samsung">
                         </div>
 
                         <div>
                         <label> Imagen </label>
-                        <input name="imagen" type="file" placeholder="Ej.: Samsung">
+                        <input name="imagen" type="file" placeholder="Ej.: Samsung" acept="image/jpeg" acept="image/png">
                         </div>
 
                         <div>
-                        <label> Stock </label>
-                        <input name="stock" type="number" placeholder="Ej.: Samsung">
+                        <label for="stocc"> Stock </label>
+                        <select name="stock" id="stock">
+                            <option  <?php echo $stock === "" ? 'selected' : ''?>>--Seleccione--</option>
+                            <option <?php echo $stock === "True" ? 'selected' : ''?> >True</option>
+                            <option  <?php echo $stock === "False" ? 'selected' : ''?>>False</option>
+
+                        </select>
+
+
                         </div>
 
                           <div>
-                        <label> Otros detalles </label>
-                       <textarea name="fetalles" >Sin Detalles</textarea>
+                        <label> Detalles </label>
+                       <textarea name="detalles" > <?php  echo $detalles ?></textarea>
                         </div>
 
 
@@ -126,27 +143,27 @@
                         <legend> Otros datos </legend>
                         <div>
                         <label> Cantidad en stock </label>
-                        <input name="cantidad-stock" type="number" min="1" placeholder="Ej.: Samsung">
+                        <input name="cantidad-stock" type="number" min="1" value="<?php echo $cantidadStock  ?>" placeholder="Ej.: Samsung">
                         </div>
 
                         <div>
                         <label> Precio Real </label>
-                        <input  name ="precio-real" type="text" placeholder="Ej.: Samsung">
+                        <input  name ="precio-real"  value="<?php echo $precioReal ?>"type="text" placeholder="Ej.: Samsung">
                         </div>
 
                         <div>
                         <label> Proveedor </label>
-                        <input type="number" name="proveedor" placeholder="Ej.: Samsung">
+                        <input type="text" name="proveedor" value="<?php echo $proveedor ?>" placeholder="Ej.: Samsung">
                         </div>
 
                         <div>
                         <label> Otros detalles </label>
-                       <textarea name="otros-detalles">Sin Detalles</textarea>
+                       <textarea name="otros-detalles"><?php echo $otrosDetalles ?></textarea>
                         </div>
 
+                        <input value="ENVIAR" type="submit">
 
                     </fieldset>
-                        <input value="ENVIAR" type="submit">
                 </form>
 
 
