@@ -19,7 +19,6 @@
 
 
 
-
     if($_SERVER['REQUEST_METHOD']==="POST"){
 
 
@@ -33,10 +32,9 @@
         $proveedor= mysqli_real_escape_string($db,$_POST['proveedor']);
         $otrosDetalles = mysqli_real_escape_string($db,$_POST['otros-detalles']);
         if(isset($_FILES['imagen'])){
-
             $imagen = $_FILES['imagen'];
-
         }
+
 
 
 
@@ -50,7 +48,7 @@
         if($precio === ""){
             $errores[] = "Debe ingresar un precio";
         }
-        if($stock === ""){
+        if($stock === "--Seleccione--"){
             $errores[] = "Debe ingresar un stock";
         }
 
@@ -70,6 +68,10 @@
             $errores[] = "Debe ingresar Otros Detalles";
         }
 
+        if ($_FILES['imagen']['name'] === "") {
+            $errores[] = "Debe ingresar imagen";
+        }
+
         // if(isset($_FILES['imagen']) && !$_FILES['imagen']['error'] = 0 ){
 
         //     $errores[] = "Debes Agregar una imagen";
@@ -79,27 +81,30 @@
 
 
         if(empty($errores)){
-
-
             // Imagen
-
             // Subir al servidor
                 // crear carpeta si no existe
                 if(!is_dir(CARPETA_IMAGENES)){
                     mkdir(CARPETA_IMAGENES);
                 }
 
-              echo "creada";
-
-
-            //Nombre
-                $nombreImagen = md5(uniqid(rand(), true)) . "jpg";
-
+                //Nombre
+                $nombreImagen = md5(uniqid(rand(), true)) . ".jpg";
+                // Subo imagen
+                move_uploaded_file($imagen['tmp_name'], CARPETA_IMAGENES . $nombreImagen);
 
                 //Inseratr todo en base de datos
-            $query = "INSERT INTO productos (marca,modelo,precio,imagen,stock,detalles) VALUES('$marca','$modelo','$precio','','$stock','$detalles');";
+            $query = "INSERT INTO productos (marca,modelo,precio,imagen,stock,detalles) VALUES('$marca','$modelo','$precio','$nombreImagen','$stock','$detalles');";
+
 
             $resultado = mysqli_query($db,$query);
+
+
+            if($resultado){
+
+                header("Location: /pagina-web/admin/admin.php?id=1");
+
+            }
 
 
 
@@ -123,7 +128,7 @@
             </div>
 
         <div>
-                <form method="POST" action="/pagina-web/admin/config/crear.php" enctype="multipart/form-data">
+                <form method="POST" action="/pagina-web/admin/productos/crear.php" enctype="multipart/form-data">
                     <fieldset>
                         <legend> Ingrese las características </legend>
                         <div>

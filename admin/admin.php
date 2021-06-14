@@ -9,7 +9,7 @@
 <main>
     <div class="">
 
-        <a href='config/crear.php'> Crear Producto</a>
+        <a href='productos/crear.php'> Crear Producto</a>
 
     </div>
 </main>
