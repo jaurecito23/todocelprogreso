@@ -8,6 +8,14 @@
 
     $resultado = mysqli_query($db,$query);
 
+    $id="";
+
+    if(isset($_GET['id'])){
+
+        $id= filter_var(intval($_GET['id']),FILTER_VALIDATE_INT);
+
+    }
+
 
         if( $_SERVER['REQUEST_METHOD']==="POST"){
 
@@ -40,6 +48,17 @@
     <div class="">
         <a href='productos/crear.php'> Crear Producto</a>
     </div>
+
+        <?php if($id === 1):?>
+        <h2> Creado Correctamente </h2>
+        <?php endif;?>
+        <?php if($id === 2):?>
+        <h2> Borrado Correctamente </h2>
+        <?php endif;?>
+        <?php if($id === 3):?>
+        <h2> Actualizado Correctamente </h2>
+        <?php endif;?>
+
 
     <div class="tabla__productos">
 

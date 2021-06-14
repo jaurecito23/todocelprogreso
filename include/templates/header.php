@@ -12,7 +12,7 @@
      <div class="contenedor_principal">
 
             <header class="panel-superior">
-               <a href="tienda.html"> <img class="logo_inicio " src="/Pagina-Web/build/img/logo.webp" alt=" Logo Imagen"></a>
+               <a href="/pagina-web/tienda.php"> <img class="logo_inicio " src="/Pagina-Web/build/img/logo.webp" alt=" Logo Imagen"></a>
                 <form>
                     <fieldset>
                         <input placeholder="Buscador..." type="text"> </input>

@@ -161,7 +161,7 @@ function moverGaleria() {
         valor += .125;
         galeria.style.backgroundPositionX = `${valor}rem`;
 
-        console.log(galeria.style.backgroundPositionX)
+
     }, 10);
 
 }

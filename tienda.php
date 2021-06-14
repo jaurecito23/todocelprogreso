@@ -1,10 +1,19 @@
 <?php
 
    require "include/funciones.php";
-    incluírTemplate("header");
+
+    $db = conectarDB();
+
+   incluírTemplate("header");
+
+
+ $query = "SELECT * FROM productos LIMIT 9 ";
+
+$resultado = mysqli_query($db, $query);
+
+
 
 ?>
-
 
 
 
@@ -28,10 +37,27 @@
 
     <div class="contenedor-productos">
 
+<?php while($producto = mysqli_fetch_assoc($resultado)){
+        $imagen = $producto['imagen']
+
+    ?>
+
+<div class="producto">
+    <p class="nombre"><?php echo $producto['modelo'];?></p>
+    <img src="<?php echo "imagenes/".$imagen ?>">
+    <p class="precio"><?php echo $producto['precio']?></p>
+
+
+</div>
+
+
+<?php };?>
+
     </div>
   </section>
 
      </div>
+
 
 <?php
 
