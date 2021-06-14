@@ -5,39 +5,41 @@
 
         $errores = [];
 
-        $marca = "";
-        $modelo = "";
-        $precio = "";
-        $imagen = "";
-        $stock = "";
-        $detalles = "Sin Detalles";
-        $cantidadStock = "";
-        $precioReal ="";
-        $proveedor= "";
+
+        $id = filter_var(intval($_GET['id']),FILTER_VALIDATE_INT);
+        $query="SELECT * FROM productos WHERE id = '${id}' LIMIT 1;";
+        $resultado = mysqli_query($db,$query);
+        $producto = mysqli_fetch_assoc($resultado);
+
+
+
+
+        $marca = $producto['marca'];
+        $modelo = $producto['modelo'];
+        $precio = $producto['precio'];
+        $imagen = $producto['imagen'];
+        $stock = $producto['stock'];
+        $detalles = $producto['detalles'];
+        $cantidadStock = "2";
+        $precioReal ="110";
+        $proveedor= "Sin registro";
         $otrosDetalles = "Sin Detalles";
-        $imagen = "";
 
 
+        if($_SERVER['REQUEST_METHOD']==="POST"){
 
-    if($_SERVER['REQUEST_METHOD']==="POST"){
-
-
-        $marca = mysqli_real_escape_string($db,$_POST['marca']);
-        $modelo = mysqli_real_escape_string($db,$_POST['modelo']);
-        $precio = mysqli_real_escape_string($db,$_POST['precio']);
-        $stock = mysqli_real_escape_string($db,$_POST['stock']);
-        $detalles = mysqli_real_escape_string($db,$_POST['detalles']);
-        $precioReal = mysqli_real_escape_string($db,$_POST['precio-real']);
-        $cantidadStock =mysqli_real_escape_string($db,$_POST['cantidad-stock']);
-        $proveedor= mysqli_real_escape_string($db,$_POST['proveedor']);
-        $otrosDetalles = mysqli_real_escape_string($db,$_POST['otros-detalles']);
-        if(isset($_FILES['imagen'])){
-            $imagen = $_FILES['imagen'];
-        }
-
-
-
-
+              $marca = mysqli_real_escape_string($db,$_POST['marca']);
+                 $modelo = mysqli_real_escape_string($db,$_POST['modelo']);
+               $precio = mysqli_real_escape_string($db,$_POST['precio']);
+                 $stock = mysqli_real_escape_string($db,$_POST['stock']);
+              $detalles = mysqli_real_escape_string($db,$_POST['detalles']);
+               $precioReal = mysqli_real_escape_string($db,$_POST['precio-real']);
+           $cantidadStock =mysqli_real_escape_string($db,$_POST['cantidad-stock']);
+               $proveedor= mysqli_real_escape_string($db,$_POST['proveedor']);
+                $otrosDetalles = mysqli_real_escape_string($db,$_POST['otros-detalles']);
+                if(isset($_FILES['imagen'])){
+                $imagen = $_FILES['imagen'];
+            }
 
         if($marca === ""){
             $errores[] = "Debe ingresar una marca";
@@ -68,49 +70,44 @@
             $errores[] = "Debe ingresar Otros Detalles";
         }
 
-        if ($_FILES['imagen']['name'] === "") {
-            $errores[] = "Debe ingresar imagen";
-        }
-
-        // if(isset($_FILES['imagen']) && !$_FILES['imagen']['error'] = 0 ){
-
-        //     $errores[] = "Debes Agregar una imagen";
-
-        // }
 
 
 
         if(empty($errores)){
-            // Imagen
-            // Subir al servidor
-                // crear carpeta si no existe
-                if(!is_dir(CARPETA_IMAGENES)){
-                    mkdir(CARPETA_IMAGENES);
-                }
 
-                //Nombre
-                $nombreImagen = md5(uniqid(rand(), true)) . ".jpg";
-                // Subo imagen
-                move_uploaded_file($imagen['tmp_name'], CARPETA_IMAGENES . $nombreImagen);
+             $nombreImagen = "";
 
-                //Inseratr todo en base de datos
-            $query = "INSERT INTO productos (marca,modelo,precio,imagen,stock,detalles) VALUES('$marca','$modelo','$precio','$nombreImagen','$stock','$detalles');";
+         if($imagen['name'] !== ""){
+                unlink(CARPETA_IMAGENES . $producto['imagen']);
+                $nombreImagen = md5(uniqid(rand(),true)) . ".jpg";
+                 move_uploaded_file($imagen['tmp_name'],CARPETA_IMAGENES . $nombreImagen);
+        }else{
+
+               $nombreImagen = $producto['imagen'];
+
+            }
+
+            $query = "UPDATE productos SET marca='${marca}', modelo = '${modelo}' ,precio='${precio}' ,imagen = '${nombreImagen}' ,stock='${stock}', detalles='${detalles}' WHERE id = ${id};";
+
+
+
 
 
             $resultado = mysqli_query($db,$query);
 
 
-            if($resultado){
+     if($resultado){
 
-                header("Location: /pagina-web/admin/index.php?id=1");
+                header("Location: /pagina-web/admin/index.php?id=3");
 
             }
 
 
 
+
         }
 
-    }
+        }
 
 
     incluírTemplate("header");
@@ -128,7 +125,7 @@
             </div>
 
         <div>
-                <form method="POST" action="/pagina-web/admin/productos/crear.php" enctype="multipart/form-data">
+                <form method="POST" action="/pagina-web/admin/productos/actualizar.php?id=<?php echo $id ?>" enctype="multipart/form-data">
                     <fieldset>
                         <legend> Ingrese las características </legend>
                         <div>
