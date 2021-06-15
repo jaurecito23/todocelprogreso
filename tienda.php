@@ -7,7 +7,7 @@
    incluírTemplate("header");
 
 
- $query = "SELECT * FROM productos LIMIT 9 ";
+ $query = "SELECT * FROM productos LIMIT 16 ";
 
 $resultado = mysqli_query($db, $query);
 

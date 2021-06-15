@@ -168,10 +168,27 @@ function moverGaleria() {
 
 moverGaleria()
 
+// desplegar resultados de Buscador
+
+const buscador = document.getElementById("buscador");
+const divResultadoBuscador = document.querySelector(".resultado__busqueda")
+buscador.addEventListener("click", function() {
+
+    divResultadoBuscador.classList.remove("oculto");
+    galeria.classList.add("sin__eventos");
+    todo.addEventListener("click", function(e) {
+
+        let div = e.target.classList.value;
+
+        if (div != "input__buscador") {
+
+            divResultadoBuscador.classList.add("oculto");
+            galeria.classList.remove("sin__eventos");
+
+        }
 
 
+    })
 
 
-
-
-// console.log(siguiente)
+})
