@@ -1,0 +1,28 @@
+.resultado__busqueda {
+    height: auto;
+    background-color: $blanco;
+    ul {
+        list-style: none;
+        padding-left: 0;
+        margin-top: 0;
+    }
+    display: block;
+    z-index: 1;
+    margin-bottom: 4rem;
+}
+
+.producto__busqueda {
+    display: grid;
+    grid-template-columns: 15% 85%;
+    column-gap: 1rem;
+    border: .5rem solid $negro;
+    height: 10%;
+}
+
+.sin__eventos {
+    pointer-events: none;
+}
+
+.con__eventos {
+    pointer-events: visible;
+}
